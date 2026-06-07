@@ -1,12 +1,12 @@
 {
   "appVersion": "4.1.2",
-  "bankVersion": "1.0.0",
+  "bankVersion": "1.0.1",
   "lastUpdated": "2026-06-07",
   "questionBankUrl": "./question_bank.json",
   "questionCount": 1140,
   "topicCount": 19,
   "changes": [
-    "Initiale versionierte Fragenbank"
+    "Fragen korrigiert"
   ],
   "appChanges": [
     "Fix: Update-URL-Feld ist jetzt Text statt URL, damit Safari keine Pattern-Fehler auslöst",
