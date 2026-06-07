@@ -6,7 +6,7 @@
   "questionCount": 1140,
   "topicCount": 19,
   "changes": [
-    "Initiale versionierte Fragenbank"
+    "Initial"
   ],
   "appChanges": [
     "Fix: keine Verwendung von new URL() mehr für Fragenbank-Update",
