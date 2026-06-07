@@ -211,7 +211,7 @@
           "id": "GEN-018",
           "question": "The antenna layout includes which items?",
           "options": {
-            "A": "GPS 2 only",
+            "A": "GPS 1 and GPS 2",
             "B": "GPS 1 and GPS 2",
             "C": "GPS 1 only",
             "D": "No GPS antennas are shown"
@@ -6580,10 +6580,10 @@
           "id": "LGB-005",
           "question": "The normal landing gear extension/retraction sequence is electrically controlled by the:",
           "options": {
-            "A": "ASCU (anti skid control unit)",
-            "B": "PSEU (proximity sensing elextronic unit)",
-            "C": "ECU (electronic control unit)",
-            "D": "FCC (flight control computer)"
+            "A": "ASCU",
+            "B": "PSEU",
+            "C": "ECU",
+            "D": "FCC"
           },
           "answer": "B",
           "explanation": "The proximity sensing electronic unit (PSEU) electrically controls normal landing gear sequencing."
@@ -7915,7 +7915,7 @@
         },
         {
           "id": "ICE-056",
-          "question": "If an ADSHC (air data sensor heater control)loses control power, the connected probes will:",
+          "question": "If an ADSHC loses control power, the connected probes will:",
           "options": {
             "A": "lose all heat",
             "B": "receive full AC power (fail-safe ON)",
@@ -10287,15 +10287,15 @@
         },
         {
           "id": "COMM-012",
-          "question": "The MIC selector switch on the audio control panel has positions for PA, VHF 1, VHF 2, HF 1, HF 2 and:",
+          "question": "The MIC selector switch on the audio control panel has positions for PA, VHF 3, 1-HF-2, and:",
           "options": {
-            "A": "NAV 2",
+            "A": "1-NAV-2",
             "B": "INT/SVC",
-            "C": "NAV 1",
+            "C": "TCAS",
             "D": "MKR"
           },
           "answer": "B",
-          "explanation": "The MIC selector includes PA, VHF 1/2, HF 1/2, and INT/SVC."
+          "explanation": "The MIC selector includes PA, VHF 3, HF 1/2, and INT/SVC."
         },
         {
           "id": "COMM-013",
@@ -13776,9 +13776,9 @@
       ]
     }
   ],
-  "version": "1.0.2",
+  "version": "1.0.0",
   "lastUpdated": "2026-06-07",
   "changes": [
-    "Fragenkorrekturen"
+    "Initiale versionierte Fragenbank"
   ]
 }

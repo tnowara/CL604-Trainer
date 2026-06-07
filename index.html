@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>CL-604 Quiz Trainer 4.1.3.2</title>
+<title>CL-604 Quiz Trainer 4.2.0</title>
 <style>
 :root{--bg:#07111f;--panel:#101827;--text:#f8fafc;--muted:#cbd5e1;--accent:#38bdf8;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b;--border:rgba(255,255,255,.14)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -45,8 +45,8 @@ label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
 <body>
 <div class="app">
 <header>
- <div><h1>CL-604 Quiz Trainer 4.1.3.2</h1><div class="badge" id="bankInfo">Fragenbank wird geladen …</div></div>
- <div><button class="secondary" onclick="showScreen('setup')">Start</button><button class="secondary" onclick="showScreen('updates')">Updates</button><button class="secondary" onclick="showScreen('stats')">Statistik</button></div>
+ <div><h1>CL-604 Quiz Trainer 4.2.0</h1><div class="badge" id="bankInfo">Fragenbank wird geladen …</div></div>
+ <div><button class="secondary" onclick="showScreen('setup')">Start</button><button class="secondary" onclick="showScreen('search')">Suche</button><button class="secondary" onclick="showScreen('updates')">Updates</button><button class="secondary" onclick="showScreen('stats')">Statistik</button></div>
 </header>
 
 <section id="setup" class="screen">
@@ -57,6 +57,15 @@ label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
   <div class="card col8"><h2>Themenfilter</h2><button class="secondary" onclick="selectAllTopics(true)">Alle</button><button class="secondary" onclick="selectAllTopics(false)">Keine</button><div id="topicList" class="topic-list"></div></div>
   <div class="card col4"><h2>Daten</h2><button class="secondary" onclick="exportProgress()">Lernstand exportieren</button><label>Lernstand importieren</label><input type="file" id="progressImport" accept=".json,application/json"><button class="danger" onclick="resetProgress()">Lernstand löschen</button></div>
  </div>
+</section>
+
+
+<section id="search" class="screen hidden">
+<div class="card">
+<h2>Fragensuche per ID</h2>
+<input type="text" id="questionSearchInput" placeholder="z.B. ACP-041 oder ACP" oninput="searchQuestionById()">
+<div id="searchResults" class="notice">Noch keine Suche.</div>
+</div>
 </section>
 
 <section id="updates" class="screen hidden">
@@ -203,6 +212,23 @@ async function importProgress(e){const file=e.target.files[0];if(!file)return;lo
 function resetProgress(){if(confirm('Lernstand löschen?')){localStorage.removeItem(PROGRESS_KEY);renderStats()}} function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');if(id==='stats')renderStats();if(id==='updates'&&bankData)applyBank(bankData)}
 function checkOffline(){document.getElementById('offlineStatus').textContent=navigator.onLine?'Aktuell online. Offline-Fallback ist aktiv.':'Aktuell offline. Lokale Fragenbank wird verwendet.'}
 if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}))}
+
+function searchQuestionById(){
+ const t=(document.getElementById('questionSearchInput').value||'').toUpperCase().trim();
+ const box=document.getElementById('searchResults');
+ if(!t){box.innerHTML='Noch keine Suche.';return;}
+ const res=(allQuestions||[]).filter(q=>String(q.id||'').toUpperCase().includes(t)).slice(0,50);
+ if(!res.length){box.innerHTML='Keine Treffer.';return;}
+ box.innerHTML=res.map(q=>{
+   let ans=q.answer||'';
+   return `<div style="padding:10px;border-bottom:1px solid #444">
+   <b>${q.id||'-'}</b> | ${q.topic||''}<br>
+   ${q.question||''}<br>
+   <span style="color:#22c55e">Richtige Antwort: ${ans}</span>
+   </div>`;
+ }).join('');
+}
+
 init();
 </script>
 </body>
