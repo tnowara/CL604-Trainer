@@ -1,64 +1,167 @@
-<!doctype html><html lang="de"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f172a"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="CL604 Quiz">
-<link rel="manifest" href="./manifest.json"><link rel="apple-touch-icon" href="./icon.svg">
-<title>CL-604 Quiz Trainer 4.0</title>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CL604 Quiz">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<title>CL-604 Quiz Trainer 4.1</title>
 <style>
 :root{--bg:#07111f;--panel:#101827;--text:#f8fafc;--muted:#cbd5e1;--accent:#38bdf8;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b;--border:rgba(255,255,255,.14)}
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#0f172a,#111827 55%,#020617);color:var(--text)}
-.app{max-width:1120px;margin:0 auto;padding:16px}header{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
-h1{font-size:clamp(24px,5vw,42px);margin:0}.badge,.muted{color:var(--muted);font-size:14px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
-.card{grid-column:span 12;background:rgba(16,24,39,.92);border:1px solid var(--border);border-radius:20px;padding:16px}.col4{grid-column:span 4}.col6{grid-column:span 6}.col8{grid-column:span 8}
-@media(max-width:820px){.col4,.col6,.col8{grid-column:span 12}}button,select,input{font:inherit}button{border:0;border-radius:15px;padding:12px 14px;margin:5px 4px 5px 0;font-weight:800;background:var(--accent);color:#00111f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(160deg,#0f172a,#111827 55%,#020617);color:var(--text)}
+.app{max-width:1120px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom))}
+header{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+h1{font-size:clamp(24px,5vw,42px);margin:0} h2{margin:0 0 12px} h3{margin:14px 0 8px}
+.badge,.muted{color:var(--muted);font-size:14px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+.card{grid-column:span 12;background:rgba(16,24,39,.92);border:1px solid var(--border);border-radius:20px;padding:16px;box-shadow:0 15px 42px rgba(0,0,0,.28)}
+.col4{grid-column:span 4}.col8{grid-column:span 8}.col6{grid-column:span 6}@media(max-width:820px){.col4,.col8,.col6{grid-column:span 12}}
+button,select,input{font:inherit}button{border:0;border-radius:15px;padding:12px 14px;margin:5px 4px 5px 0;font-weight:800;background:var(--accent);color:#00111f}
 button.secondary{background:#334155;color:var(--text)}button.ok{background:var(--ok);color:#022c22}button.warn{background:var(--warn);color:#1c1917}button.danger{background:var(--bad);color:white}
-select,input{width:100%;padding:12px;border-radius:14px;border:1px solid var(--border);background:#020617;color:var(--text);margin:4px 0 10px}label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
-.topic-list{max-height:300px;overflow:auto;background:#020617;border:1px solid var(--border);border-radius:16px;padding:8px}.topic-row{display:flex;gap:9px;align-items:center;padding:8px 4px;color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}.stat{background:#020617;border:1px solid var(--border);border-radius:16px;padding:12px}.stat b{font-size:23px;display:block}
+select,input[type=number],input[type=file],input[type=url]{width:100%;padding:12px;border-radius:14px;border:1px solid var(--border);background:#020617;color:var(--text);margin:4px 0 10px}
+label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
+.topic-list{max-height:340px;overflow:auto;background:#020617;border:1px solid var(--border);border-radius:16px;padding:8px}
+.topic-row{display:grid;grid-template-columns:28px 1fr auto;align-items:center;column-gap:8px;min-height:44px;padding:8px 10px;color:var(--muted);border-radius:12px;cursor:pointer;user-select:none}
+.topic-row:hover{background:rgba(255,255,255,.05)}
+.topic-row input{width:20px;height:20px;margin:0;transform:none;justify-self:start;accent-color:var(--accent)}
+.topic-title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text)}
+.topic-count{font-size:13px;color:var(--muted);padding:3px 8px;border:1px solid var(--border);border-radius:99px;background:#0f172a;min-width:42px;text-align:right}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:#020617;border:1px solid var(--border);border-radius:16px;padding:12px}.stat b{font-size:23px;display:block}
 .progress-wrap{height:13px;background:#020617;border:1px solid var(--border);border-radius:99px;overflow:hidden;margin:14px 0}.progress{height:100%;width:0;background:var(--accent);transition:.25s}
-.question{font-size:clamp(20px,4vw,30px);line-height:1.35;margin:14px 0}.option{width:100%;text-align:left;background:#020617;color:var(--text);border:1px solid var(--border);border-radius:17px;padding:15px;margin:8px 0;font-weight:700}.option small{font-weight:500;color:var(--muted);font-size:15px}
-.option.correct{border-color:var(--ok);background:rgba(34,197,94,.15)}.option.wrong{border-color:var(--bad);background:rgba(239,68,68,.16)}.explain{background:#020617;border-left:5px solid var(--accent);border-radius:13px;padding:13px;color:var(--muted)}
-.hidden{display:none!important}.pill{display:inline-block;border:1px solid var(--border);background:#020617;color:var(--muted);border-radius:99px;padding:5px 9px;font-size:12px;margin:2px}.notice{padding:12px;border-radius:14px;background:#020617;border:1px solid var(--border);color:var(--muted)}
+.question{font-size:clamp(20px,4vw,30px);line-height:1.35;margin:14px 0}
+.option{width:100%;text-align:left;background:#020617;color:var(--text);border:1px solid var(--border);border-radius:17px;padding:15px;margin:8px 0;font-weight:700}
+.option small{font-weight:500;color:var(--muted);font-size:15px}.option.correct{border-color:var(--ok);background:rgba(34,197,94,.15)}.option.wrong{border-color:var(--bad);background:rgba(239,68,68,.16)}
+.explain{background:#020617;border-left:5px solid var(--accent);border-radius:13px;padding:13px;color:var(--muted)}
+.hidden{display:none!important}.pill{display:inline-block;border:1px solid var(--border);background:#020617;color:var(--muted);border-radius:99px;padding:5px 9px;font-size:12px;margin:2px}
 .table-wrap{overflow:auto;max-height:440px}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:9px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}th{position:sticky;top:0;background:#111827;color:var(--muted)}
-</style></head><body><div class="app">
-<header><div><h1>CL-604 Quiz Trainer 4.0</h1><div class="badge" id="bankInfo">Fragenbank wird geladen …</div></div><div><button class="secondary" onclick="showScreen('setup')">Start</button><button class="secondary" onclick="showScreen('updates')">Updates</button><button class="secondary" onclick="showScreen('stats')">Statistik</button></div></header>
-<section id="setup" class="screen"><div class="grid">
-<div class="card col4"><h2>Quiz einstellen</h2><label>Modus</label><select id="mode"><option value="learn">Lernmodus – sofortige Erklärung</option><option value="exam">Prüfungsmodus – Auswertung am Ende</option><option value="wrong">Fehlertraining – gespeicherte Fehler</option></select><label>Anzahl</label><select id="countPreset" onchange="toggleCustomCount()"><option value="20">20</option><option value="50">50</option><option value="100">100</option><option value="custom">Eigene Anzahl</option></select><input class="hidden" id="customCount" type="number" min="1" value="30"><label>Zeitlimit</label><select id="timeLimit"><option value="0">Ohne Zeitlimit</option><option value="10">10 Minuten</option><option value="20">20 Minuten</option><option value="30">30 Minuten</option><option value="60">60 Minuten</option></select><button class="ok" onclick="startQuiz()">Quiz starten</button></div>
-<div class="card col4"><h2>Schnellstart</h2><button onclick="quick(20,'learn')">20 Lernen</button><button onclick="quick(50,'exam')">50 Prüfung</button><button onclick="quick(100,'exam')">100 Prüfung</button><button class="warn" onclick="quickWrong()">Fehler üben</button><p class="muted">Offlinefähig; Updates nur bei Internet.</p></div>
-<div class="card col4"><h2>Daten</h2><button class="secondary" onclick="exportProgress()">Lernstand exportieren</button><label>Lernstand importieren</label><input type="file" id="progressImport" accept=".json,application/json"><button class="danger" onclick="resetProgress()">Lernstand löschen</button></div>
-<div class="card col8"><h2>Themenfilter</h2><button class="secondary" onclick="selectAllTopics(true)">Alle</button><button class="secondary" onclick="selectAllTopics(false)">Keine</button><div id="topicList" class="topic-list"></div></div>
-<div class="card col4"><h2>Status</h2><button class="secondary" onclick="checkOffline()">Offline-Status prüfen</button><div class="notice" id="offlineStatus">Noch nicht geprüft.</div></div>
-</div></section>
-<section id="updates" class="screen hidden"><div class="grid"><div class="card col6"><h2>Update-Quelle</h2><p class="muted">Hier die Raw-URL deiner GitHub-Datei app_version.json eintragen. Beispiel: https://raw.githubusercontent.com/USER/REPO/main/app_version.json</p><label>app_version.json URL</label><input type="url" id="updateUrl" placeholder="https://raw.githubusercontent.com/.../app_version.json"><button class="secondary" onclick="saveUpdateUrl()">URL speichern</button><button class="ok" onclick="checkForUpdates()">Jetzt prüfen</button><div id="updateStatus" class="notice">Noch nicht geprüft.</div></div><div class="card col6"><h2>Lokale Fragenbank</h2><div id="localBankInfo" class="notice"></div><label>Manuell neue question_bank.json importieren</label><input type="file" id="bankImport" accept=".json,application/json"></div></div></section>
+.install{border:1px dashed rgba(56,189,248,.6);background:rgba(56,189,248,.08)}.notice{padding:12px;border-radius:14px;background:#020617;border:1px solid var(--border);color:var(--muted);line-height:1.45}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div><h1>CL-604 Quiz Trainer 4.1</h1><div class="badge" id="bankInfo">Fragenbank wird geladen …</div></div>
+ <div><button class="secondary" onclick="showScreen('setup')">Start</button><button class="secondary" onclick="showScreen('updates')">Updates</button><button class="secondary" onclick="showScreen('stats')">Statistik</button></div>
+</header>
+
+<section id="setup" class="screen">
+ <div class="grid">
+  <div class="card col4 install"><h2>Offline & Updates</h2><p class="muted">Fragenbank und Lernstand bleiben lokal. Online kann die App nach neuer App-Version und neuer Fragenbank suchen.</p><button class="secondary" onclick="checkOffline()">Offline-Status prüfen</button><div class="muted" id="offlineStatus"></div></div>
+  <div class="card col4"><h2>Quiz einstellen</h2><label>Modus</label><select id="mode"><option value="learn">Lernmodus – sofortige Erklärung</option><option value="exam">Prüfungsmodus – Auswertung am Ende</option><option value="wrong">Fehlertraining – gespeicherte Fehler</option></select><label>Anzahl</label><select id="countPreset" onchange="toggleCustomCount()"><option value="20">20</option><option value="50">50</option><option value="100">100</option><option value="custom">Eigene Anzahl</option></select><input class="hidden" id="customCount" type="number" min="1" value="30"><label>Zeitlimit</label><select id="timeLimit"><option value="0">Ohne Zeitlimit</option><option value="10">10 Minuten</option><option value="20">20 Minuten</option><option value="30">30 Minuten</option><option value="60">60 Minuten</option></select><button class="ok" onclick="startQuiz()">Quiz starten</button></div>
+  <div class="card col4"><h2>Schnellstart</h2><button onclick="quick(20,'learn')">20 Lernen</button><button onclick="quick(50,'exam')">50 Prüfung</button><button onclick="quick(100,'exam')">100 Prüfung</button><button class="warn" onclick="quickWrong()">Fehler üben</button><p class="muted">Version 4.1: optimierte Themenauswahl + App-Updates.</p></div>
+  <div class="card col8"><h2>Themenfilter</h2><button class="secondary" onclick="selectAllTopics(true)">Alle</button><button class="secondary" onclick="selectAllTopics(false)">Keine</button><div id="topicList" class="topic-list"></div></div>
+  <div class="card col4"><h2>Daten</h2><button class="secondary" onclick="exportProgress()">Lernstand exportieren</button><label>Lernstand importieren</label><input type="file" id="progressImport" accept=".json,application/json"><button class="danger" onclick="resetProgress()">Lernstand löschen</button></div>
+ </div>
+</section>
+
+<section id="updates" class="screen hidden">
+ <div class="grid">
+  <div class="card col6"><h2>Update-Quelle</h2><p class="muted">Trage die Raw-URL deiner GitHub-Datei <b>app_version.json</b> ein.</p><label>app_version.json URL</label><input type="url" id="updateUrl" placeholder="https://raw.githubusercontent.com/.../app_version.json"><button class="secondary" onclick="saveUpdateUrl()">URL speichern</button><button class="ok" onclick="checkForUpdates()">Updates prüfen</button><div id="updateStatus" class="notice">Noch nicht geprüft.</div></div>
+  <div class="card col6"><h2>Lokale Versionen</h2><div id="localBankInfo" class="notice"></div><label>Manuell neue question_bank.json importieren</label><input type="file" id="bankImport" accept=".json,application/json"></div>
+ </div>
+</section>
+
 <section id="quiz" class="screen hidden"><div class="card"><div class="stats"><div class="stat"><span>Frage</span><b id="qNo">-</b></div><div class="stat"><span>Punkte</span><b id="score">0</b></div><div class="stat"><span>Zeit</span><b id="timer">--:--</b></div><div class="stat"><span>Modus</span><b id="modeLabel">-</b></div></div><div class="progress-wrap"><div class="progress" id="progress"></div></div><div><span class="pill" id="topicPill"></span><span class="pill" id="idPill"></span></div><div class="question" id="questionText"></div><div id="options"></div><div id="explanation" class="explain hidden"></div><button id="nextBtn" class="ok hidden" onclick="nextQuestion()">Nächste Frage</button><button class="secondary" onclick="finishQuiz()">Beenden & Auswerten</button></div></section>
 <section id="results" class="screen hidden"><div class="card"><h2>Auswertung</h2><div class="stats"><div class="stat"><span>Richtig</span><b id="resCorrect">0</b></div><div class="stat"><span>Falsch</span><b id="resWrong">0</b></div><div class="stat"><span>Prozent</span><b id="resPercent">0%</b></div><div class="stat"><span>Dauer</span><b id="resTime">--:--</b></div></div><button class="warn" onclick="startWrongOnly()">Falsche aus dieser Runde üben</button><button class="secondary" onclick="showScreen('setup')">Neues Quiz</button><h3>Fehlerliste</h3><div class="table-wrap"><table id="wrongTable"></table></div></div></section>
 <section id="stats" class="screen hidden"><div class="card"><h2>Lernstand</h2><div id="statsContent"></div><button class="secondary" onclick="renderStats()">Aktualisieren</button></div></section>
-</div><script>
-let bankData=null,allQuestions=[],quiz=[],current=0,score=0,answers=[],selected=null,quizMode='learn',startTime=0,timerHandle=null,secondsLeft=0;
-const BANK_KEY='cl604quiz4_bank',PROGRESS_KEY='cl604quiz4_progress',UPDATE_URL_KEY='cl604quiz4_update_url';
-async function init(){document.getElementById('updateUrl').value=localStorage.getItem(UPDATE_URL_KEY)||'./app_version.json';document.getElementById('progressImport').onchange=importProgress;document.getElementById('bankImport').onchange=importBankFile;await loadLocalBank();if(navigator.onLine)setTimeout(()=>checkForUpdates(true),1000)}
-async function loadLocalBank(){let stored=localStorage.getItem(BANK_KEY);if(stored){bankData=JSON.parse(stored)}else{let r=await fetch('./question_bank.json',{cache:'no-store'});bankData=await r.json();localStorage.setItem(BANK_KEY,JSON.stringify(bankData))}applyBank(bankData)}
-function applyBank(b){bankData=b;allQuestions=flatten(b);document.getElementById('bankInfo').textContent=allQuestions.length+' Fragen · '+new Set(allQuestions.map(q=>q.topic)).size+' Themen · Bank '+(b.version||'ohne Version')+' · offline bereit';document.getElementById('localBankInfo').innerHTML='Version: <b>'+esc(b.version||'unbekannt')+'</b><br>Stand: '+esc(b.lastUpdated||'-')+'<br>Fragen: '+allQuestions.length+'<br>Themen: '+new Set(allQuestions.map(q=>q.topic)).size;renderTopics()}
+</div>
+
+<script>
+const APP_VERSION='4.1.0';
+let bankData=null, allQuestions=[], quiz=[], current=0, score=0, answers=[], selected=null, quizMode='learn', startTime=0, timerHandle=null, secondsLeft=0;
+const BANK_KEY='cl604quiz4_bank', PROGRESS_KEY='cl604quiz4_progress', UPDATE_URL_KEY='cl604quiz4_update_url';
+
+async function init(){
+  document.getElementById('updateUrl').value=localStorage.getItem(UPDATE_URL_KEY)||'./app_version.json';
+  document.getElementById('progressImport').onchange=importProgress;
+  document.getElementById('bankImport').onchange=importBankFile;
+  await loadLocalBank();
+  if(navigator.onLine) setTimeout(()=>checkForUpdates(true),1000);
+}
+async function loadLocalBank(){
+  let stored=localStorage.getItem(BANK_KEY);
+  if(stored) bankData=JSON.parse(stored);
+  else {
+    const resp=await fetch('./question_bank.json',{cache:'no-store'});
+    bankData=await resp.json();
+    localStorage.setItem(BANK_KEY,JSON.stringify(bankData));
+  }
+  applyBank(bankData);
+}
+function applyBank(b){
+  bankData=b; allQuestions=flatten(b);
+  document.getElementById('bankInfo').textContent=allQuestions.length+' Fragen · '+new Set(allQuestions.map(q=>q.topic)).size+' Themen · Bank '+(b.version||'ohne Version')+' · App '+APP_VERSION+' · Offline bereit';
+  document.getElementById('localBankInfo').innerHTML='App: <b>'+APP_VERSION+'</b><br>Fragenbank: <b>'+esc(b.version||'unbekannt')+'</b><br>Stand: '+esc(b.lastUpdated||'-')+'<br>Fragen: '+allQuestions.length+'<br>Themen: '+new Set(allQuestions.map(q=>q.topic)).size;
+  renderTopics();
+}
 function flatten(b){let o=[];(b.topics||[]).forEach(tp=>(tp.questions||[]).forEach(q=>{if(q.question&&q.options&&q.answer)o.push({...q,topic:tp.topic||'Ohne Thema'})}));return o}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function renderTopics(){let ts=[...new Set(allQuestions.map(q=>q.topic))].sort();document.getElementById('topicList').innerHTML=ts.map(t=>`<label class="topic-row"><input type="checkbox" class="topicCheck" value="${esc(t)}" checked><span>${esc(t)} (${allQuestions.filter(q=>q.topic===t).length})</span></label>`).join('')}
+function renderTopics(){
+  const ts=[...new Set(allQuestions.map(q=>q.topic))].sort();
+  document.getElementById('topicList').innerHTML=ts.map(t=>`<label class="topic-row"><input type="checkbox" class="topicCheck" value="${esc(t)}" checked><span class="topic-title">${esc(t)}</span><span class="topic-count">${allQuestions.filter(q=>q.topic===t).length}</span></label>`).join('');
+}
 function saveUpdateUrl(){localStorage.setItem(UPDATE_URL_KEY,document.getElementById('updateUrl').value.trim());document.getElementById('updateStatus').textContent='Update-URL gespeichert.'}
-function cmp(a,b){let pa=String(a||'0').split('.').map(Number),pb=String(b||'0').split('.').map(Number);for(let i=0;i<Math.max(pa.length,pb.length);i++){let x=pa[i]||0,y=pb[i]||0;if(x>y)return 1;if(x<y)return-1}return 0}
-async function checkForUpdates(silent=false){let box=document.getElementById('updateStatus');if(!silent)box.textContent='Prüfe auf Updates …';let url=(document.getElementById('updateUrl').value||'./app_version.json').trim();try{let v=await fetch(url,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()});let local=bankData?.version||'0.0.0',remote=v.bankVersion||v.version||'0.0.0';if(cmp(remote,local)>0){window.pendingVersionInfo=v;box.innerHTML='Neue Fragenbank verfügbar:<br><b>'+esc(remote)+'</b> statt '+esc(local)+'<br>'+(v.changes||[]).map(x=>'• '+esc(x)).join('<br>')+'<br><button class="ok" onclick="installUpdate()">Jetzt aktualisieren</button>'}else if(!silent){box.innerHTML='Keine neuere Version gefunden.<br>Lokal: <b>'+esc(local)+'</b><br>Online: <b>'+esc(remote)+'</b>'}}catch(e){if(!silent)box.textContent='Update-Prüfung nicht möglich. Lokale Fragenbank wird weiter verwendet. '+e.message}}
-async function installUpdate(){let box=document.getElementById('updateStatus'),v=window.pendingVersionInfo;if(!v){box.textContent='Keine Update-Information vorhanden.';return}try{box.textContent='Lade neue Fragenbank …';let baseUrl=(document.getElementById('updateUrl').value||'./app_version.json').trim();let bankUrl=v.questionBankUrl?new URL(v.questionBankUrl,baseUrl).href:'./question_bank.json';let newBank=await fetch(bankUrl,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()});localStorage.setItem(BANK_KEY,JSON.stringify(newBank));applyBank(newBank);box.innerHTML='Update installiert: <b>'+esc(newBank.version||'unbekannt')+'</b>. Lernstand blieb erhalten.'}catch(e){box.textContent='Update fehlgeschlagen: '+e.message}}
-async function importBankFile(e){let file=e.target.files[0];if(!file)return;let b=JSON.parse(await file.text());localStorage.setItem(BANK_KEY,JSON.stringify(b));applyBank(b);document.getElementById('updateStatus').textContent='Fragenbank manuell importiert.'}
-function selectAllTopics(v){document.querySelectorAll('.topicCheck').forEach(c=>c.checked=v)}function toggleCustomCount(){document.getElementById('customCount').classList.toggle('hidden',document.getElementById('countPreset').value!=='custom')}function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}function count(){let p=document.getElementById('countPreset').value;return p==='custom'?parseInt(document.getElementById('customCount').value||'1'):parseInt(p)}function topics(){return[...document.querySelectorAll('.topicCheck:checked')].map(c=>c.value)}
-function quick(n,m){document.getElementById('countPreset').value=String(n);document.getElementById('mode').value=m;startQuiz()}function quickWrong(){document.getElementById('mode').value='wrong';startQuiz()}
+function compareVersion(a,b){const pa=String(a||'0').split('.').map(Number),pb=String(b||'0').split('.').map(Number);for(let i=0;i<Math.max(pa.length,pb.length);i++){let x=pa[i]||0,y=pb[i]||0;if(x>y)return 1;if(x<y)return -1}return 0}
+async function checkForUpdates(silent=false){
+  const box=document.getElementById('updateStatus'); if(!silent) box.textContent='Prüfe auf Updates …';
+  const url=(document.getElementById('updateUrl').value||'./app_version.json').trim();
+  try{
+    const v=await fetch(url,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
+    const localBank=bankData?.version||'0.0.0', remoteBank=v.bankVersion||v.version||'0.0.0';
+    const remoteApp=v.appVersion||'0.0.0';
+    let msg='App lokal: <b>'+APP_VERSION+'</b><br>App online: <b>'+esc(remoteApp)+'</b><br>Bank lokal: <b>'+esc(localBank)+'</b><br>Bank online: <b>'+esc(remoteBank)+'</b><br>';
+    if(compareVersion(remoteApp,APP_VERSION)>0) msg += '<br><b>Neue App-Version verfügbar.</b><br>'+(v.appChanges||[]).map(x=>'• '+esc(x)).join('<br>')+'<br><button class="warn" onclick="installAppUpdate()">App aktualisieren</button>';
+    if(compareVersion(remoteBank,localBank)>0) msg += '<br><b>Neue Fragenbank verfügbar.</b><br>'+(v.changes||[]).map(x=>'• '+esc(x)).join('<br>')+'<br><button class="ok" onclick="installBankUpdate()">Fragenbank aktualisieren</button>';
+    if(compareVersion(remoteApp,APP_VERSION)<=0 && compareVersion(remoteBank,localBank)<=0) msg+='<br>Keine neuere Version gefunden.';
+    box.innerHTML=msg; window.pendingVersionInfo=v;
+  }catch(e){if(!silent) box.textContent='Update-Prüfung nicht möglich. Lokale Daten werden weiter verwendet. '+e.message;}
+}
+async function installBankUpdate(){
+  const box=document.getElementById('updateStatus'),v=window.pendingVersionInfo;if(!v)return;
+  try{
+    box.textContent='Lade neue Fragenbank …';
+    const baseUrl=(document.getElementById('updateUrl').value||'./app_version.json').trim();
+    const bankUrl=v.questionBankUrl?new URL(v.questionBankUrl,baseUrl).href:'./question_bank.json';
+    const newBank=await fetch(bankUrl,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
+    localStorage.setItem(BANK_KEY,JSON.stringify(newBank));applyBank(newBank);
+    box.innerHTML='Fragenbank aktualisiert: <b>'+esc(newBank.version||'unbekannt')+'</b>. Lernstand blieb erhalten.';
+  }catch(e){box.textContent='Fragenbank-Update fehlgeschlagen: '+e.message;}
+}
+async function installAppUpdate(){
+  const ok=confirm('Die App lädt danach neu. Lernstand und lokale Fragenbank bleiben erhalten. Fortfahren?'); if(!ok)return;
+  try{
+    if(navigator.serviceWorker && navigator.serviceWorker.controller){
+      navigator.serviceWorker.controller.postMessage({type:'CLEAR_CACHE_AND_RELOAD'});
+      setTimeout(()=>location.reload(),800);
+    } else location.reload();
+  }catch(e){location.reload();}
+}
+async function importBankFile(e){const file=e.target.files[0];if(!file)return;const b=JSON.parse(await file.text());localStorage.setItem(BANK_KEY,JSON.stringify(b));applyBank(b);document.getElementById('updateStatus').textContent='Fragenbank manuell importiert.'}
+function selectAllTopics(v){document.querySelectorAll('.topicCheck').forEach(c=>c.checked=v)} function toggleCustomCount(){document.getElementById('customCount').classList.toggle('hidden',document.getElementById('countPreset').value!=='custom')}
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function count(){let p=document.getElementById('countPreset').value;return p==='custom'?parseInt(document.getElementById('customCount').value||'1'):parseInt(p)} function topics(){return [...document.querySelectorAll('.topicCheck:checked')].map(c=>c.value)}
+function quick(n,m){document.getElementById('countPreset').value=String(n);document.getElementById('mode').value=m;startQuiz()} function quickWrong(){document.getElementById('mode').value='wrong';startQuiz()}
 function startQuiz(custom=null,forced=null){quizMode=forced||document.getElementById('mode').value;let pool=custom||allQuestions.filter(q=>topics().includes(q.topic));if(quizMode==='wrong'&&!custom){let ids=getWrongIds();pool=allQuestions.filter(q=>ids.includes(q.id)&&topics().includes(q.topic))}if(!pool.length){alert('Keine passenden Fragen gefunden.');return}quiz=shuffle([...pool]).slice(0,Math.min(count(),pool.length));current=0;score=0;answers=[];selected=null;startTime=Date.now();secondsLeft=parseInt(document.getElementById('timeLimit').value||'0')*60;clearInterval(timerHandle);timerHandle=setInterval(updateTimer,1000);showScreen('quiz');showQuestion();updateTimer()}
-function fmt(s){let m=Math.floor(s/60),r=s%60;return String(m).padStart(2,'0')+':'+String(r).padStart(2,'0')}function updateTimer(){let e=Math.floor((Date.now()-startTime)/1000);if(secondsLeft>0){let l=Math.max(0,secondsLeft-e);document.getElementById('timer').textContent=fmt(l);if(l<=0)finishQuiz()}else document.getElementById('timer').textContent=fmt(e)}
+function fmt(s){let m=Math.floor(s/60),r=s%60;return String(m).padStart(2,'0')+':'+String(r).padStart(2,'0')} function updateTimer(){let e=Math.floor((Date.now()-startTime)/1000);if(secondsLeft>0){let l=Math.max(0,secondsLeft-e);document.getElementById('timer').textContent=fmt(l);if(l<=0)finishQuiz()}else document.getElementById('timer').textContent=fmt(e)}
 function showQuestion(){let q=quiz[current];selected=null;document.getElementById('qNo').textContent=(current+1)+'/'+quiz.length;document.getElementById('score').textContent=score;document.getElementById('modeLabel').textContent=quizMode==='learn'?'Lernen':quizMode==='exam'?'Prüfung':'Fehler';document.getElementById('progress').style.width=(current/quiz.length*100)+'%';document.getElementById('topicPill').textContent=q.topic;document.getElementById('idPill').textContent=q.id||'';document.getElementById('questionText').textContent=q.question;document.getElementById('explanation').classList.add('hidden');document.getElementById('nextBtn').classList.add('hidden');document.getElementById('options').innerHTML=Object.keys(q.options).map(k=>`<button class="option" onclick="chooseAnswer('${k}')"><b>${k}</b>: <small>${esc(q.options[k])}</small></button>`).join('')}
 function chooseAnswer(k){let q=quiz[current];if(selected!==null)return;selected=k;let correct=k===q.answer;if(correct)score++;answers.push({...q,selected:k,correct});[...document.querySelectorAll('.option')].forEach(b=>{let key=b.innerText.trim()[0];if(key===q.answer)b.classList.add('correct');if(key===k&&!correct)b.classList.add('wrong')});if(quizMode==='learn'||quizMode==='wrong'){let ex=document.getElementById('explanation');ex.innerHTML='<b>'+(correct?'Richtig.':'Falsch. Richtige Antwort: '+q.answer)+'</b><br>'+esc(q.explanation||'');ex.classList.remove('hidden');document.getElementById('nextBtn').classList.remove('hidden')}else nextQuestion()}
-function nextQuestion(){current++;current>=quiz.length?finishQuiz():showQuestion()}function finishQuiz(){clearInterval(timerHandle);let elapsed=Math.floor((Date.now()-startTime)/1000);saveSession(elapsed);let c=answers.filter(a=>a.correct).length,w=answers.length-c;document.getElementById('resCorrect').textContent=c;document.getElementById('resWrong').textContent=w;document.getElementById('resPercent').textContent=Math.round(c/Math.max(1,answers.length)*100)+'%';document.getElementById('resTime').textContent=fmt(elapsed);let wrong=answers.filter(a=>!a.correct);document.getElementById('wrongTable').innerHTML='<tr><th>ID</th><th>Thema</th><th>Frage</th><th>Deine Antwort</th><th>Richtig</th><th>Erklärung</th></tr>'+wrong.map(a=>`<tr><td>${esc(a.id)}</td><td>${esc(a.topic)}</td><td>${esc(a.question)}</td><td>${esc(a.selected)}</td><td>${esc(a.answer)}</td><td>${esc(a.explanation)}</td></tr>`).join('');showScreen('results')}
-function store(){try{return JSON.parse(localStorage.getItem(PROGRESS_KEY)||'{"sessions":[],"wrong":{}}')}catch(e){return{"sessions":[],"wrong":{}}}}function setStore(s){localStorage.setItem(PROGRESS_KEY,JSON.stringify(s))}
-function saveSession(elapsed){let s=store();s.sessions.push({date:new Date().toISOString(),mode:quizMode,total:answers.length,correct:answers.filter(a=>a.correct).length,elapsed,bankVersion:bankData?.version});answers.forEach(a=>{if(!s.wrong[a.id])s.wrong[a.id]={id:a.id,topic:a.topic,question:a.question,misses:0,hits:0};a.correct?s.wrong[a.id].hits++:s.wrong[a.id].misses++});setStore(s)}
-function getWrongIds(){return Object.values(store().wrong||{}).filter(w=>w.misses>0).map(w=>w.id)}function startWrongOnly(){let ids=answers.filter(a=>!a.correct).map(a=>a.id),list=allQuestions.filter(q=>ids.includes(q.id));if(!list.length){alert('Keine falschen Fragen in dieser Runde.');return}startQuiz(list,'wrong')}
+function nextQuestion(){current++;current>=quiz.length?finishQuiz():showQuestion()}
+function finishQuiz(){clearInterval(timerHandle);let elapsed=Math.floor((Date.now()-startTime)/1000);saveSession(elapsed);let c=answers.filter(a=>a.correct).length,w=answers.length-c;document.getElementById('resCorrect').textContent=c;document.getElementById('resWrong').textContent=w;document.getElementById('resPercent').textContent=Math.round(c/Math.max(1,answers.length)*100)+'%';document.getElementById('resTime').textContent=fmt(elapsed);let wrong=answers.filter(a=>!a.correct);document.getElementById('wrongTable').innerHTML='<tr><th>ID</th><th>Thema</th><th>Frage</th><th>Deine Antwort</th><th>Richtig</th><th>Erklärung</th></tr>'+wrong.map(a=>`<tr><td>${esc(a.id)}</td><td>${esc(a.topic)}</td><td>${esc(a.question)}</td><td>${esc(a.selected)}</td><td>${esc(a.answer)}</td><td>${esc(a.explanation)}</td></tr>`).join('');showScreen('results')}
+function store(){try{return JSON.parse(localStorage.getItem(PROGRESS_KEY)||'{"sessions":[],"wrong":{}}')}catch(e){return {"sessions":[],"wrong":{}}}} function setStore(s){localStorage.setItem(PROGRESS_KEY,JSON.stringify(s))}
+function saveSession(elapsed){let s=store();s.sessions.push({date:new Date().toISOString(),mode:quizMode,total:answers.length,correct:answers.filter(a=>a.correct).length,elapsed,bankVersion:bankData?.version,appVersion:APP_VERSION});answers.forEach(a=>{if(!s.wrong[a.id])s.wrong[a.id]={id:a.id,topic:a.topic,question:a.question,misses:0,hits:0};a.correct?s.wrong[a.id].hits++:s.wrong[a.id].misses++});setStore(s)}
+function getWrongIds(){return Object.values(store().wrong||{}).filter(w=>w.misses>0).map(w=>w.id)} function startWrongOnly(){let ids=answers.filter(a=>!a.correct).map(a=>a.id),list=allQuestions.filter(q=>ids.includes(q.id));if(!list.length){alert('Keine falschen Fragen in dieser Runde.');return}startQuiz(list,'wrong')}
 function renderStats(){let s=store(),ses=s.sessions||[],total=ses.reduce((n,x)=>n+x.total,0),cor=ses.reduce((n,x)=>n+x.correct,0),wrong=Object.values(s.wrong||{}).filter(w=>w.misses>0);document.getElementById('statsContent').innerHTML=`<div class="stats"><div class="stat"><span>Sitzungen</span><b>${ses.length}</b></div><div class="stat"><span>Beantwortet</span><b>${total}</b></div><div class="stat"><span>Ø Treffer</span><b>${Math.round(cor/Math.max(1,total)*100)}%</b></div><div class="stat"><span>Fehlerpool</span><b>${wrong.length}</b></div></div><h3>Häufig falsch</h3><div class="table-wrap"><table><tr><th>ID</th><th>Thema</th><th>Frage</th><th>Fehler</th><th>Treffer</th></tr>${wrong.sort((a,b)=>b.misses-a.misses).slice(0,100).map(w=>`<tr><td>${esc(w.id)}</td><td>${esc(w.topic)}</td><td>${esc(w.question)}</td><td>${w.misses}</td><td>${w.hits}</td></tr>`).join('')}</table></div>`}
-function exportProgress(){let blob=new Blob([JSON.stringify(store(),null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cl604_lernstand.json';a.click();URL.revokeObjectURL(a.href)}
-async function importProgress(e){let file=e.target.files[0];if(!file)return;localStorage.setItem(PROGRESS_KEY,await file.text());alert('Lernstand importiert.')}function resetProgress(){if(confirm('Lernstand löschen?')){localStorage.removeItem(PROGRESS_KEY);renderStats()}}
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');if(id==='stats')renderStats();if(id==='updates'&&bankData)applyBank(bankData)}function checkOffline(){document.getElementById('offlineStatus').textContent=navigator.onLine?'Aktuell online. Offline-Fallback ist aktiv.':'Aktuell offline. Lokale Fragenbank wird verwendet.'}
-if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}))}init();
-</script></body></html>
+function exportProgress(){const blob=new Blob([JSON.stringify(store(),null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cl604_lernstand.json';a.click();URL.revokeObjectURL(a.href)}
+async function importProgress(e){const file=e.target.files[0];if(!file)return;localStorage.setItem(PROGRESS_KEY,await file.text());alert('Lernstand importiert.')}
+function resetProgress(){if(confirm('Lernstand löschen?')){localStorage.removeItem(PROGRESS_KEY);renderStats()}} function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');if(id==='stats')renderStats();if(id==='updates'&&bankData)applyBank(bankData)}
+function checkOffline(){document.getElementById('offlineStatus').textContent=navigator.onLine?'Aktuell online. Offline-Fallback ist aktiv.':'Aktuell offline. Lokale Fragenbank wird verwendet.'}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}))}
+init();
+</script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 {
   "name": "CL-604 Quiz Trainer",
   "short_name": "CL604 Quiz",
+  "description": "Offlinefähiger CL-604 Quiz Trainer mit App- und Fragenbank-Updates",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -9,9 +10,14 @@
   "theme_color": "#0f172a",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png"
     }
   ]
 }
