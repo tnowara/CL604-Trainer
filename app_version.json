@@ -1,5 +1,5 @@
 {
-  "appVersion": "4.2.1",
+  "appVersion": "4.2.2",
   "bankVersion": "1.0.0",
   "lastUpdated": "2026-06-07",
   "questionBankUrl": "./question_bank.json",
@@ -9,8 +9,9 @@
     "Initiale versionierte Fragenbank"
   ],
   "appChanges": [
-    "Fix: App-Update-Button ist aktiv und ausführbar",
-    "Fix: App-Update löscht Service Worker und Cache vor dem Neuladen",
-    "Fragensuche aus 4.2.0 bleibt enthalten"
+    "Suchfunktion erweitert: vollständige Frage wird angezeigt",
+    "Antwortoptionen werden in der Suche angezeigt",
+    "Richtige Antwort wird grün markiert",
+    "Erklärung wird in der Suche angezeigt"
   ]
 }

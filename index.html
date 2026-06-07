@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>CL-604 Quiz Trainer 4.2.1</title>
+<title>CL-604 Quiz Trainer 4.2.2</title>
 <style>
 :root{--bg:#07111f;--panel:#101827;--text:#f8fafc;--muted:#cbd5e1;--accent:#38bdf8;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b;--border:rgba(255,255,255,.14)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -40,12 +40,20 @@ label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
 .hidden{display:none!important}.pill{display:inline-block;border:1px solid var(--border);background:#020617;color:var(--muted);border-radius:99px;padding:5px 9px;font-size:12px;margin:2px}
 .table-wrap{overflow:auto;max-height:440px}table{width:100%;border-collapse:collapse;min-width:720px}th,td{padding:9px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}th{position:sticky;top:0;background:#111827;color:var(--muted)}
 .install{border:1px dashed rgba(56,189,248,.6);background:rgba(56,189,248,.08)}.notice{padding:12px;border-radius:14px;background:#020617;border:1px solid var(--border);color:var(--muted);line-height:1.45}
+
+.search-card{padding:12px;border-bottom:1px solid var(--border)}
+.search-question{margin:8px 0 10px;font-size:16px;line-height:1.35;color:var(--text)}
+.search-options{display:grid;gap:6px;margin-top:8px}
+.search-option{display:grid;grid-template-columns:34px 1fr;gap:8px;align-items:start;background:#020617;border:1px solid var(--border);border-radius:12px;padding:8px;color:var(--muted)}
+.search-option.correct{border-color:var(--ok);background:rgba(34,197,94,.13);color:var(--text)}
+.search-explanation{margin-top:8px;color:var(--muted);font-size:14px}
+
 </style>
 </head>
 <body>
 <div class="app">
 <header>
- <div><h1>CL-604 Quiz Trainer 4.2.1</h1><div class="badge" id="bankInfo">Fragenbank wird geladen …</div></div>
+ <div><h1>CL-604 Quiz Trainer 4.2.2</h1><div class="badge" id="bankInfo">Fragenbank wird geladen …</div></div>
  <div><button class="secondary" onclick="showScreen('setup')">Start</button><button class="secondary" onclick="showScreen('search')">Suche</button><button class="secondary" onclick="showScreen('updates')">Updates</button><button class="secondary" onclick="showScreen('stats')">Statistik</button></div>
 </header>
 
@@ -81,7 +89,7 @@ label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
 </div>
 
 <script>
-const APP_VERSION='4.2.1';
+const APP_VERSION='4.2.2';
 let bankData=null, allQuestions=[], quiz=[], current=0, score=0, answers=[], selected=null, quizMode='learn', startTime=0, timerHandle=null, secondsLeft=0;
 const BANK_KEY='cl604quiz4_bank', PROGRESS_KEY='cl604quiz4_progress', UPDATE_URL_KEY='cl604quiz4_update_url';
 
@@ -219,15 +227,31 @@ function searchQuestionById(){
  if(!t){box.innerHTML='Noch keine Suche.';return;}
  const res=(allQuestions||[]).filter(q=>String(q.id||'').toUpperCase().includes(t)).slice(0,50);
  if(!res.length){box.innerHTML='Keine Treffer.';return;}
+
  box.innerHTML=res.map(q=>{
-   let ans=q.answer||'';
-   return `<div style="padding:10px;border-bottom:1px solid #444">
-   <b>${q.id||'-'}</b> | ${q.topic||''}<br>
-   ${q.question||''}<br>
-   <span style="color:#22c55e">Richtige Antwort: ${ans}</span>
+   const opts=q.options||{};
+   const ans=String(q.answer||'').toUpperCase();
+   const optionsHtml=Object.keys(opts).map(k=>{
+     const cls=String(k).toUpperCase()===ans ? 'search-option correct' : 'search-option';
+     const mark=String(k).toUpperCase()===ans ? ' ✓' : '';
+     return `<div class="${cls}"><b>${esc(k)}${mark}</b><span>${esc(opts[k])}</span></div>`;
+   }).join('');
+   const safeId=esc(q.id||'');
+
+   return `<div class="search-card">
+     <div><span class="pill">${esc(q.id||'-')}</span> <span class="pill">${esc(q.topic||'')}</span></div>
+     <div class="search-question"><b>Frage:</b><br>${esc(q.question||'')}</div>
+     <div class="search-options">${optionsHtml}</div>
+     ${q.explanation ? `<div class="search-explanation"><b>Erklärung:</b><br>${esc(q.explanation)}</div>` : ''}
+     <button class="ok" onclick="practiceSearchQuestion('${safeId}')">Diese Frage üben</button>
    </div>`;
  }).join('');
 }
+function practiceSearchQuestion(id){
+ const q=(allQuestions||[]).find(x=>String(x.id)===String(id));
+ if(q) startQuiz([q],'learn');
+}
+
 
 async function installAppUpdate(){
   const box=document.getElementById('updateStatus');
