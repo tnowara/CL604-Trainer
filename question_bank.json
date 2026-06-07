@@ -2,7 +2,7 @@
   "version": "1.0.0"
   "lastUpdated": "2026-06-07"
   "changes": [
-    "Initiale versionierte Fragenbank"
+    "Fragen korrigiert"
   ],
   "topics": [
     {
@@ -216,7 +216,7 @@
           "id": "GEN-018",
           "question": "The antenna layout includes which items?",
           "options": {
-            "A": "GPS 1 and GPS 2",
+            "A": "GPS 2 only",
             "B": "GPS 1 and GPS 2",
             "C": "GPS 1 only",
             "D": "No GPS antennas are shown"
