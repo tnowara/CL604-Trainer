@@ -1,12 +1,12 @@
 {
   "appVersion": "4.1.3",
-  "bankVersion": "1.0.0",
+  "bankVersion": "1.0.2",
   "lastUpdated": "2026-06-07",
   "questionBankUrl": "https://raw.githubusercontent.com/tnowara/cl604-trainer/main/question_bank.json",
   "questionCount": 1140,
   "topicCount": 19,
   "changes": [
-    "Initial"
+    "Fragenkorrekturen"
   ],
   "appChanges": [
     "Fix: keine Verwendung von new URL() mehr für Fragenbank-Update",
