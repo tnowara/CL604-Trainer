@@ -1,20 +1,16 @@
 {
-  "appVersion": "4.1.0",
-  "bankVersion": "1.0.1",
+  "appVersion": "4.1.2",
+  "bankVersion": "1.0.0",
   "lastUpdated": "2026-06-07",
-  "questionBankUrl": "question_bank.json"
+  "questionBankUrl": "./question_bank.json",
+  "questionCount": 1140,
   "topicCount": 19,
   "changes": [
-    "GEN-018 korrigiert",
-    "LGB-005 Abkürzungen erklärt",
-    "ICE-056 Abkürzung erklärt",
-    "COMM-012 Frage und Antwort korrigiert"
+    "Initiale versionierte Fragenbank"
   ],
   "appChanges": [
-    "Themenauswahl für iPad optimiert",
-    "Checkbox-Abstand korrigiert",
-    "Fragenanzahl rechtsbündig",
-    "App-Updateprüfung ergänzt",
-    "Cache-Refresh für neue App-Versionen ergänzt"
+    "Fix: Update-URL-Feld ist jetzt Text statt URL, damit Safari keine Pattern-Fehler auslöst",
+    "Fix: Update-URL wird bereinigt, falls Anführungszeichen oder Leerzeichen eingefügt wurden",
+    "Fix: Fragenbank-URL wird robuster aufgelöst"
   ]
 }

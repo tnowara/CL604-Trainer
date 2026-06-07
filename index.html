@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>CL-604 Quiz Trainer 4.1</title>
+<title>CL-604 Quiz Trainer 4.1.2.2</title>
 <style>
 :root{--bg:#07111f;--panel:#101827;--text:#f8fafc;--muted:#cbd5e1;--accent:#38bdf8;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b;--border:rgba(255,255,255,.14)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -22,7 +22,7 @@ h1{font-size:clamp(24px,5vw,42px);margin:0} h2{margin:0 0 12px} h3{margin:14px 0
 .col4{grid-column:span 4}.col8{grid-column:span 8}.col6{grid-column:span 6}@media(max-width:820px){.col4,.col8,.col6{grid-column:span 12}}
 button,select,input{font:inherit}button{border:0;border-radius:15px;padding:12px 14px;margin:5px 4px 5px 0;font-weight:800;background:var(--accent);color:#00111f}
 button.secondary{background:#334155;color:var(--text)}button.ok{background:var(--ok);color:#022c22}button.warn{background:var(--warn);color:#1c1917}button.danger{background:var(--bad);color:white}
-select,input[type=number],input[type=file],input[type=url]{width:100%;padding:12px;border-radius:14px;border:1px solid var(--border);background:#020617;color:var(--text);margin:4px 0 10px}
+select,input[type=number],input[type=file]{width:100%;padding:12px;border-radius:14px;border:1px solid var(--border);background:#020617;color:var(--text);margin:4px 0 10px}
 label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
 .topic-list{max-height:340px;overflow:auto;background:#020617;border:1px solid var(--border);border-radius:16px;padding:8px}
 .topic-row{display:grid;grid-template-columns:28px 1fr auto;align-items:center;column-gap:8px;min-height:44px;padding:8px 10px;color:var(--muted);border-radius:12px;cursor:pointer;user-select:none}
@@ -45,7 +45,7 @@ label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
 <body>
 <div class="app">
 <header>
- <div><h1>CL-604 Quiz Trainer 4.1</h1><div class="badge" id="bankInfo">Fragenbank wird geladen …</div></div>
+ <div><h1>CL-604 Quiz Trainer 4.1.2.2</h1><div class="badge" id="bankInfo">Fragenbank wird geladen …</div></div>
  <div><button class="secondary" onclick="showScreen('setup')">Start</button><button class="secondary" onclick="showScreen('updates')">Updates</button><button class="secondary" onclick="showScreen('stats')">Statistik</button></div>
 </header>
 
@@ -53,7 +53,7 @@ label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
  <div class="grid">
   <div class="card col4 install"><h2>Offline & Updates</h2><p class="muted">Fragenbank und Lernstand bleiben lokal. Online kann die App nach neuer App-Version und neuer Fragenbank suchen.</p><button class="secondary" onclick="checkOffline()">Offline-Status prüfen</button><div class="muted" id="offlineStatus"></div></div>
   <div class="card col4"><h2>Quiz einstellen</h2><label>Modus</label><select id="mode"><option value="learn">Lernmodus – sofortige Erklärung</option><option value="exam">Prüfungsmodus – Auswertung am Ende</option><option value="wrong">Fehlertraining – gespeicherte Fehler</option></select><label>Anzahl</label><select id="countPreset" onchange="toggleCustomCount()"><option value="20">20</option><option value="50">50</option><option value="100">100</option><option value="custom">Eigene Anzahl</option></select><input class="hidden" id="customCount" type="number" min="1" value="30"><label>Zeitlimit</label><select id="timeLimit"><option value="0">Ohne Zeitlimit</option><option value="10">10 Minuten</option><option value="20">20 Minuten</option><option value="30">30 Minuten</option><option value="60">60 Minuten</option></select><button class="ok" onclick="startQuiz()">Quiz starten</button></div>
-  <div class="card col4"><h2>Schnellstart</h2><button onclick="quick(20,'learn')">20 Lernen</button><button onclick="quick(50,'exam')">50 Prüfung</button><button onclick="quick(100,'exam')">100 Prüfung</button><button class="warn" onclick="quickWrong()">Fehler üben</button><p class="muted">Version 4.1: optimierte Themenauswahl + App-Updates.</p></div>
+  <div class="card col4"><h2>Schnellstart</h2><button onclick="quick(20,'learn')">20 Lernen</button><button onclick="quick(50,'exam')">50 Prüfung</button><button onclick="quick(100,'exam')">100 Prüfung</button><button class="warn" onclick="quickWrong()">Fehler üben</button><p class="muted">Version 4.1.2: optimierte Themenauswahl + App-Updates.</p></div>
   <div class="card col8"><h2>Themenfilter</h2><button class="secondary" onclick="selectAllTopics(true)">Alle</button><button class="secondary" onclick="selectAllTopics(false)">Keine</button><div id="topicList" class="topic-list"></div></div>
   <div class="card col4"><h2>Daten</h2><button class="secondary" onclick="exportProgress()">Lernstand exportieren</button><label>Lernstand importieren</label><input type="file" id="progressImport" accept=".json,application/json"><button class="danger" onclick="resetProgress()">Lernstand löschen</button></div>
  </div>
@@ -61,7 +61,7 @@ label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
 
 <section id="updates" class="screen hidden">
  <div class="grid">
-  <div class="card col6"><h2>Update-Quelle</h2><p class="muted">Trage die Raw-URL deiner GitHub-Datei <b>app_version.json</b> ein.</p><label>app_version.json URL</label><input type="url" id="updateUrl" placeholder="https://raw.githubusercontent.com/.../app_version.json"><button class="secondary" onclick="saveUpdateUrl()">URL speichern</button><button class="ok" onclick="checkForUpdates()">Updates prüfen</button><div id="updateStatus" class="notice">Noch nicht geprüft.</div></div>
+  <div class="card col6"><h2>Update-Quelle</h2><p class="muted">Trage die Raw-URL deiner GitHub-Datei <b>app_version.json</b> ein.</p><label>app_version.json URL</label><input type="text" id="updateUrl" placeholder="https://raw.githubusercontent.com/.../app_version.json"><button class="secondary" onclick="saveUpdateUrl()">URL speichern</button><button class="ok" onclick="checkForUpdates()">Updates prüfen</button><div id="updateStatus" class="notice">Noch nicht geprüft.</div></div>
   <div class="card col6"><h2>Lokale Versionen</h2><div id="localBankInfo" class="notice"></div><label>Manuell neue question_bank.json importieren</label><input type="file" id="bankImport" accept=".json,application/json"></div>
  </div>
 </section>
@@ -72,7 +72,7 @@ label{display:block;color:var(--muted);font-size:14px;margin-top:8px}
 </div>
 
 <script>
-const APP_VERSION='4.1.0';
+const APP_VERSION='4.1.2';
 let bankData=null, allQuestions=[], quiz=[], current=0, score=0, answers=[], selected=null, quizMode='learn', startTime=0, timerHandle=null, secondsLeft=0;
 const BANK_KEY='cl604quiz4_bank', PROGRESS_KEY='cl604quiz4_progress', UPDATE_URL_KEY='cl604quiz4_update_url';
 
@@ -105,11 +105,19 @@ function renderTopics(){
   const ts=[...new Set(allQuestions.map(q=>q.topic))].sort();
   document.getElementById('topicList').innerHTML=ts.map(t=>`<label class="topic-row"><input type="checkbox" class="topicCheck" value="${esc(t)}" checked><span class="topic-title">${esc(t)}</span><span class="topic-count">${allQuestions.filter(q=>q.topic===t).length}</span></label>`).join('');
 }
-function saveUpdateUrl(){localStorage.setItem(UPDATE_URL_KEY,document.getElementById('updateUrl').value.trim());document.getElementById('updateStatus').textContent='Update-URL gespeichert.'}
+function normalizeUrlInput(s){
+  return String(s || '').trim().replace(/^["'“”‘’]+|["'“”‘’]+$/g,'');
+}
+function saveUpdateUrl(){
+  const val=normalizeUrlInput(document.getElementById('updateUrl').value);
+  document.getElementById('updateUrl').value=val;
+  localStorage.setItem(UPDATE_URL_KEY,val);
+  document.getElementById('updateStatus').textContent='Update-URL gespeichert.';
+}
 function compareVersion(a,b){const pa=String(a||'0').split('.').map(Number),pb=String(b||'0').split('.').map(Number);for(let i=0;i<Math.max(pa.length,pb.length);i++){let x=pa[i]||0,y=pb[i]||0;if(x>y)return 1;if(x<y)return -1}return 0}
 async function checkForUpdates(silent=false){
   const box=document.getElementById('updateStatus'); if(!silent) box.textContent='Prüfe auf Updates …';
-  const url=(document.getElementById('updateUrl').value||'./app_version.json').trim();
+  const url=normalizeUrlInput(document.getElementById('updateUrl').value||'./app_version.json');
   try{
     const v=await fetch(url,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
     const localBank=bankData?.version||'0.0.0', remoteBank=v.bankVersion||v.version||'0.0.0';
@@ -125,21 +133,24 @@ async function installBankUpdate(){
   const box=document.getElementById('updateStatus'),v=window.pendingVersionInfo;if(!v)return;
   try{
     box.textContent='Lade neue Fragenbank …';
-    const baseUrl=(document.getElementById('updateUrl').value||'./app_version.json').trim();
-    const bankUrl=v.questionBankUrl?new URL(v.questionBankUrl,baseUrl).href:'./question_bank.json';
-    const newBank=await fetch(bankUrl,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()});
+    const updateUrl=normalizeUrlInput(document.getElementById('updateUrl').value||'./app_version.json');
+    const bankRef=(v.questionBankUrl||'question_bank.json').trim();
+
+    function resolveBankUrl(ref, versionUrl){
+      if(/^https?:\/\//i.test(ref)) return ref;
+      if(/^https?:\/\//i.test(versionUrl)){
+        return new URL(ref.replace(/^\/+/, ''), versionUrl).href;
+      }
+      if(ref.startsWith('./')) return ref;
+      if(ref.startsWith('/')) return '.' + ref;
+      return './' + ref;
+    }
+
+    const bankUrl=resolveBankUrl(bankRef, updateUrl);
+    const newBank=await fetch(bankUrl,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status+' bei '+bankUrl);return r.json()});
     localStorage.setItem(BANK_KEY,JSON.stringify(newBank));applyBank(newBank);
     box.innerHTML='Fragenbank aktualisiert: <b>'+esc(newBank.version||'unbekannt')+'</b>. Lernstand blieb erhalten.';
   }catch(e){box.textContent='Fragenbank-Update fehlgeschlagen: '+e.message;}
-}
-async function installAppUpdate(){
-  const ok=confirm('Die App lädt danach neu. Lernstand und lokale Fragenbank bleiben erhalten. Fortfahren?'); if(!ok)return;
-  try{
-    if(navigator.serviceWorker && navigator.serviceWorker.controller){
-      navigator.serviceWorker.controller.postMessage({type:'CLEAR_CACHE_AND_RELOAD'});
-      setTimeout(()=>location.reload(),800);
-    } else location.reload();
-  }catch(e){location.reload();}
 }
 async function importBankFile(e){const file=e.target.files[0];if(!file)return;const b=JSON.parse(await file.text());localStorage.setItem(BANK_KEY,JSON.stringify(b));applyBank(b);document.getElementById('updateStatus').textContent='Fragenbank manuell importiert.'}
 function selectAllTopics(v){document.querySelectorAll('.topicCheck').forEach(c=>c.checked=v)} function toggleCustomCount(){document.getElementById('customCount').classList.toggle('hidden',document.getElementById('countPreset').value!=='custom')}

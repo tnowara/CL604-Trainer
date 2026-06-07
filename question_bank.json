@@ -1,12 +1,4 @@
 {
-  "version": "1.0.1",
-  "lastUpdated": "2026-06-07"
-  "changes": [
-    "GEN-018 korrigiert",
-    "LGB-005 Abkürzungen erklärt",
-    "ICE-056 Abkürzung erklärt",
-    "COMM-012 Frage und Antwort korrigiert"
-  ],
   "topics": [
     {
       "topic": "Airplane General",
@@ -219,7 +211,7 @@
           "id": "GEN-018",
           "question": "The antenna layout includes which items?",
           "options": {
-            "A": "GPS 2 only",
+            "A": "GPS 1 and GPS 2",
             "B": "GPS 1 and GPS 2",
             "C": "GPS 1 only",
             "D": "No GPS antennas are shown"
@@ -6588,10 +6580,10 @@
           "id": "LGB-005",
           "question": "The normal landing gear extension/retraction sequence is electrically controlled by the:",
           "options": {
-            "A": "ASCU (Anti Skid Control Unit)",
-            "B": "PSEU (Proximity Sensing Electronic Unit)",
-            "C": "ECU (Electronic Control Unit)",
-            "D": "FCC (Flight Control Computer)"
+            "A": "ASCU",
+            "B": "PSEU",
+            "C": "ECU",
+            "D": "FCC"
           },
           "answer": "B",
           "explanation": "The proximity sensing electronic unit (PSEU) electrically controls normal landing gear sequencing."
@@ -7923,7 +7915,7 @@
         },
         {
           "id": "ICE-056",
-          "question": "If an ADSHC (Air Data Sensor Heat Controller) loses control power, the connected probes will:",
+          "question": "If an ADSHC loses control power, the connected probes will:",
           "options": {
             "A": "lose all heat",
             "B": "receive full AC power (fail-safe ON)",
@@ -10295,11 +10287,11 @@
         },
         {
           "id": "COMM-012",
-          "question": "The MIC selector switch on the audio control panel has positions for PA, VHF 1, VHF 2, HF 1, HF 2 and:",
+          "question": "The MIC selector switch on the audio control panel has positions for PA, VHF 3, 1-HF-2, and:",
           "options": {
-            "A": "NAV 1",
+            "A": "1-NAV-2",
             "B": "INT/SVC",
-            "C": "NAV 2",
+            "C": "TCAS",
             "D": "MKR"
           },
           "answer": "B",
