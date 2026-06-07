@@ -1,0 +1,10 @@
+{
+  "bankVersion": "1.0.0",
+  "lastUpdated": "2026-06-07",
+  "questionBankUrl": "./question_bank.json",
+  "questionCount": 1140,
+  "topicCount": 19,
+  "changes": [
+    "Initiale versionierte Fragenbank für CL-604 Quiz Trainer 4.0"
+  ]
+}

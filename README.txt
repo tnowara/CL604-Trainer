@@ -1,22 +1,30 @@
-CL-604 Quiz Trainer 3.0
+CL-604 Quiz Trainer 4.0
 
-Inhalt:
+Enthalten:
 - index.html
 - question_bank.json
+- app_version.json
 - manifest.json
 - service-worker.js
-- App-Icons
+- icon.svg
 
-Wichtig:
-Eine PWA muss über eine lokale oder öffentliche Webadresse geöffnet werden.
-Direktes Öffnen der HTML-Datei aus der Dateien-App installiert keine echte PWA.
+Neu:
+- Offlinefähige lokale Fragenbank
+- Update-Prüfung über app_version.json
+- GitHub Raw URL speicherbar
+- Lernstand bleibt bei Fragenbank-Updates erhalten
+- Lernstand Export/Import
+- Manuelle question_bank.json-Importfunktion
 
-iPad:
-1. Ordner auf einen Webserver/Hosting laden.
-2. index.html in Safari öffnen.
-3. Teilen -> Zum Home-Bildschirm.
-4. App starten.
+GitHub Pages:
+1. ZIP entpacken.
+2. Den Inhalt des Ordners CL604_Quiz_PWA_4_0 in dein GitHub Repository hochladen.
+3. GitHub Pages aktivieren.
+4. index.html in Safari öffnen.
+5. Teilen -> Zum Home-Bildschirm.
 
-Lokaler Test am Computer:
-python3 -m http.server 8000
-Dann http://localhost:8000 öffnen.
+Update:
+- question_bank.json korrigieren.
+- version erhöhen, z. B. 1.0.1.
+- app_version.json bankVersion ebenfalls erhöhen.
+- In der App unter Updates die Raw-URL der app_version.json eintragen.
