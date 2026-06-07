@@ -1,12 +1,15 @@
 {
   "appVersion": "4.1.0",
-  "bankVersion": "1.0.0",
+  "bankVersion": "1.0.1",
   "lastUpdated": "2026-06-07",
   "questionBankUrl": "./question_bank.json",
   "questionCount": 1140,
   "topicCount": 19,
   "changes": [
-    "Initiale versionierte Fragenbank"
+    "GEN-018 korrigiert",
+    "LGB-005 Abkürzungen erklärt",
+    "ICE-056 Abkürzung erklärt",
+    "COMM-012 Frage und Antwort korrigiert"
   ],
   "appChanges": [
     "Themenauswahl für iPad optimiert",
