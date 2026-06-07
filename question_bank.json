@@ -1,4 +1,9 @@
 {
+  "version": "1.0.0"
+  "lastUpdated": "07.06.2026"
+  "changes": [
+    "initiale Fragendatenbank"
+  ],
   "topics": [
     {
       "topic": "Airplane General",
