@@ -1,9 +1,4 @@
 {
-  "version": "1.0.1"
-  "lastUpdated": "2026-06-07"
-  "changes": [
-    "Fragen korrigiert"
-  ],
   "topics": [
     {
       "topic": "Airplane General",
@@ -216,7 +211,7 @@
           "id": "GEN-018",
           "question": "The antenna layout includes which items?",
           "options": {
-            "A": "GPS 2 only",
+            "A": "GPS 1 and GPS 2",
             "B": "GPS 1 and GPS 2",
             "C": "GPS 1 only",
             "D": "No GPS antennas are shown"

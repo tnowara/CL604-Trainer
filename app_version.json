@@ -1,16 +1,16 @@
 {
-  "appVersion": "4.1.2",
-  "bankVersion": "1.0.1",
+  "appVersion": "4.1.3",
+  "bankVersion": "1.0.0",
   "lastUpdated": "2026-06-07",
-  "questionBankUrl": "https://raw.githubusercontent.com/tnowara/cl604-trainer/main/question_bank.json",
+  "questionBankUrl": "./question_bank.json",
   "questionCount": 1140,
   "topicCount": 19,
   "changes": [
-    "Fragen korrigiert"
+    "Initiale versionierte Fragenbank"
   ],
   "appChanges": [
-    "Fix: Update-URL-Feld ist jetzt Text statt URL, damit Safari keine Pattern-Fehler auslöst",
-    "Fix: Update-URL wird bereinigt, falls Anführungszeichen oder Leerzeichen eingefügt wurden",
-    "Fix: Fragenbank-URL wird robuster aufgelöst"
+    "Fix: keine Verwendung von new URL() mehr für Fragenbank-Update",
+    "Fix: Safari/iPad Pattern-Fehler bei Updateprüfung umgangen",
+    "Fix: relative und absolute GitHub-URLs werden manuell und robust aufgelöst"
   ]
 }
