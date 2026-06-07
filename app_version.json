@@ -2,7 +2,7 @@
   "appVersion": "4.1.0",
   "bankVersion": "1.0.1",
   "lastUpdated": "2026-06-07",
-  "questionBankUrl": "https://raw.githubusercontent.com/tnowara/cl604-trainer/main/question_bank.json",
+  "questionBankUrl": "https://github.com/tnowara/CL604-Trainer/blob/991ca5682472701384e192e9148738579eaa62a9/question_bank.json",
   "questionCount": 1140,
   "topicCount": 19,
   "changes": [
