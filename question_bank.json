@@ -1,8 +1,11 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.1",
   "lastUpdated": "2026-06-07"
   "changes": [
-
+    "GEN-018 korrigiert",
+    "LGB-005 Abkürzungen erklärt",
+    "ICE-056 Abkürzung erklärt",
+    "COMM-012 Frage und Antwort korrigiert"
   ],
   "topics": [
     {
