@@ -1,12 +1,12 @@
 {
   "appVersion": "4.2.2",
-  "bankVersion": "1.0.0",
-  "lastUpdated": "2026-06-07",
+  "bankVersion": "1.0.1",
+  "lastUpdated": "2026-06-08",
   "questionBankUrl": "https://raw.githubusercontent.com/tnowara/cl604-trainer/main/question_bank.json",
   "questionCount": 1140,
   "topicCount": 19,
   "changes": [
-    "Initiale versionierte Fragenbank"
+    "Fragen korrigiert"
   ],
   "appChanges": [
     "Suchfunktion erweitert: vollständige Frage wird angezeigt",
